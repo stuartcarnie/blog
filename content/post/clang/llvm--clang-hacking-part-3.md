@@ -9,7 +9,7 @@ Part 3 in my N-part series on my exploration of hacking on [llvm](http://llvm.or
 
 ## Prerequisites
 
-This post assumes you've successfully completed [Part 1](http://aussiebloke.blogspot.com/2012/06/llvm-clang-hacking-part-1.html) and [Part 2](http://aussiebloke.blogspot.com/2012/06/llvm-clang-hacking-part-2.html) of the series.  I'm also going to assume if you're interested in hacking on Clang, you have an understanding of compilation and are familiar with terms such as lexing, parsing, syntactic analysis, semantic analysis and code generation.  If not, then you need to purchase a copy of [Compilers: Principals, Techniques and Tools](http://www.amazon.com/Compilers-Principles-Techniques-Tools-Edition/dp/0321486811/ref=pd_sim_b_1), also known as the [Dragon Book](http://en.wikipedia.org/wiki/Compilers:_Principles,_Techniques,_and_Tools) and read through it.  There are also plenty of resources on Google.
+This post assumes you've successfully completed [Part 1](/post/clang/llvm--clang-hacking-part-1/) and [Part 2](/post/clang/llvm--clang-hacking-part-2/) of the series.  I'm also going to assume if you're interested in hacking on Clang, you have an understanding of compilation and are familiar with terms such as lexing, parsing, syntactic analysis, semantic analysis and code generation.  If not, then you need to purchase a copy of [Compilers: Principals, Techniques and Tools](http://www.amazon.com/Compilers-Principles-Techniques-Tools-Edition/dp/0321486811/ref=pd_sim_b_1), also known as the [Dragon Book](http://en.wikipedia.org/wiki/Compilers:_Principles,_Techniques,_and_Tools) and read through it.  There are also plenty of resources on Google.
 
 ## Objective-C Extension: NSURL Literals
 

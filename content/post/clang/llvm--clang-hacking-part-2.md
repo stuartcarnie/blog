@@ -9,21 +9,27 @@ Part 2 in my N-part series on my exploration of hacking on [llvm](http://llvm.or
 
 ## Prerequisites
 
-This post assumes you've successfully completed [Part 1](/post/llvm--clang-hacking-part-1/) of the series.  
+This post assumes you've successfully completed [Part 1](/post/clang/llvm--clang-hacking-part-1/) of the series.  
 
 ## Debugging
 
 By default, Clang presents a [gcc-compatible](http://clang.llvm.org/docs/DriverInternals.html#gcccompat) command-line interface.  In most circumstances, this allows Clang to be a drop-in replacement for gcc for rapid testing and easier adoption.  When using the gcc interface, Clang spawns a new job to handle the compilation, which prevents debugging the various stages of the compilation process.  You can see this by running the following command:
 
-<pre>clang -### test.m -o test</pre>
+```sh
+$ clang -### test.m -o test
+```
 
 With that in mind, you should invoke Clang with the -cc1 option as the first argument, which directly executes the Clang cc1 tool.  TIP: running the following command outputs considerably useful command line documentation:
 
-<pre>clang -cc1 --help</pre>
+```sh
+$ clang -cc1 --help
+```
 
 Also noteworthy is the following command
 
-<pre>clang -cc1as --help</pre>
+```sh
+$ clang -cc1as --help
+```
 
 which documents many of the arguments available to the Clang Integrated Assembler.
 

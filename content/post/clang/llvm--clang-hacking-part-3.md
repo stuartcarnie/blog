@@ -1,7 +1,7 @@
 +++
 title = "llvm / Clang hacking: Part 3"
-date = 2012-06-06T02:33:00Z
-updated = 2012-08-02T22:24:44Z
+date = "2012-06-06T02:33:00Z"
+updated = "2012-08-02T22:24:44Z"
 categories = ["clang"]
 +++
 
@@ -15,32 +15,36 @@ This post assumes you've successfully completed [Part 1](http://aussiebloke.blog
 
 [Objective-C literals](http://clang.llvm.org/docs/ObjectiveCLiterals.html) are an exciting syntactic feature coming to the next release of Clang.  This will be available in [Xcode 4.4](http://stackoverflow.com/questions/9347722/apple-llvm-4-0-new-features-on-xcode-4-4-literals) and presumably the next iOS update.  I was indirectly presented with the challenge on Twitter from [@casademora](https://twitter.com/casademora/status/208596677551071232) when querying what an NSURL literal might look like.  Truthfully, I've wanted an excuse to hack on Clang and this seemed small enough in scope to achieve in a day.  I threw out the idea of NSURL literals being represented by a @@ prefix, so the following line would compile:
 
+```objc
 NSURL *url = @@"http://apple.com"
+```
 
-**NOTE: **I'm not suggesting NSURL literals should be introduced in to Objective-C.  This merely serves a reasonable feature for academic exploration.
+**NOTE:** I'm not suggesting `NSURL` literals should become a new language feature of Objective-C – this merely serves a reasonable feature for academic exploration.
 
 ## Parsing: libparse
 
 Armed with the knowledge that these new literals were available, I started exploring the libparse code in Clang.  ParseObjc.cpp seemed like a good place to start, which turned out to be correct and lead me to the rather aptly named [Parser::ParseObjCAtExpression](https://github.com/llvm-mirror/clang/blob/4d3db4eb6caa49a7cdbfe1798728ce4b23cd0b53/lib/Parse/ParseObjc.cpp#L2019) method.  The implementation of this method is obvious, determining the next token and delegating parsing to various methods depending of the type of expression encountered.  Our syntax requires a second @ token, so I added the following code to the switch statement:
 
-<pre>case tok::at:
+```objc
+case tok::at:
     // Objective-C NSURL expression
     ConsumeToken(); // Consume the additional @ token.
     if (!Tok.is(tok::string_literal)) {
       return ExprError(Diag(AtLoc, diag::err_unexpected_at));
     }
     return ParsePostfixExpressionSuffix(ParseObjCURLLiteral(AtLoc));
-</pre>
+```
 
 In english, if we find another @ token, we'll assume an NSURL literal and attempt to parse, by delegating to our new ParseObjCURLLiteral method. The implementation of [ParseObjCURLLiteral](https://github.com/scarnie/clang/blob/NSURL-literal/lib/Parse/ParseObjc.cpp#L2561) is again quite simple:
 
-<pre>ExprResult Parser::ParseObjCURLLiteral(clang::SourceLocation AtLoc) {
+```objc
+ExprResult Parser::ParseObjCURLLiteral(clang::SourceLocation AtLoc) {
     ExprResult Res(ParseStringLiteralExpression());
     if (Res.isInvalid()) return move(Res);
 
     return Owned(Actions.BuildObjCURLLiteral(AtLoc, Res.take()));
 }
-</pre>
+```
 
 The first thing it does is attempt to parse a C-string literal using the existing ParseStringLiteralExpression method.  If the result of this is invalid, fail; otherwise, call our new [Actions.BuildObjCURLLiteral](https://github.com/scarnie/clang/blob/NSURL-literal/lib/Sema/SemaExprObjC.cpp#L143) method.  Actions is an instance of the Semantic Analysis class _Sema_ in libsema, responsible for generating the Abstract Syntax Tree (AST), which is consumed by the code generator in libcodegen.
 
@@ -50,16 +54,19 @@ This library is responsible for converting parsed code into an AST.  I looked at
 
 First this is to determine is how to generate an NSURL instance.  The [NSURL URLWithString:](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSURL_Class/Reference/Reference.html#//apple_ref/doc/uid/20000301-BAJBBDIB) class method is the best candidate, following the lead of the other Obj-C literals.  This class method requires an NSString as it's first and only argument, so the first thing we need is to generate this expression.  As can be seen in the first few lines of our BuildObjCURLLiteral method
 
-<pre>ExprResult Sema::BuildObjCURLLiteral(SourceLocation AtLoc, Expr *String) {
+```objc
+ExprResult Sema::BuildObjCURLLiteral(SourceLocation AtLoc, Expr *String) {
   StringLiteral *S = reinterpret_cast(String);
   if (CheckObjCString(S))
       return true;
 
-  ExprResult ObjCString = BuildObjCStringLiteral(AtLoc, S);</pre>
+  ExprResult ObjCString = BuildObjCStringLiteral(AtLoc, S);
+```
 
 We take our string expression and build and NSString. Next we need to confirm the existence of and cache the NSURL class declaration
 
-<pre>if (!NSURLDecl) {
+```objc
+if (!NSURLDecl) {
   NamedDecl *IF = LookupSingleName(TUScope,
                                    NSAPIObj->getNSClassId(NSAPI::ClassId_NSURL),
                                    AtLoc,
@@ -81,40 +88,42 @@ We take our string expression and build and NSString. Next we need to confirm th
   QualType NSURLObject = CX.getObjCInterfaceType(NSURLDecl);
   NSURLPointer = CX.getObjCObjectPointerType(NSURLObject);
 }
-</pre>
+```
 
 and finally the URLWithString: selector
 
-<pre>if (!URLWithStringMethod) {
+```objc
+if (!URLWithStringMethod) {
   Selector Sel = NSAPIObj->getNSURLLiteralSelector(NSAPI::NSURLWithString);
   URLWithStringMethod = NSURLDecl->lookupClassMethod(Sel);
 }
-</pre>
+```
 
-**NOTE:** I implemented the NSURL features on the NSAPI class, which were easily determined by examining the other APIs exposed, such as NSArray and NSDictionary.
+**NOTE:** I implemented the `NSURL` features on the `NSAPI` class, which were easily determined by examining the other APIs exposed, such as NSArray and NSDictionary.
 
 The remaining requirement of this method is to return an expression that will ultimately result in a call to objc_msgSend with the arguments: NSURL class, URLWithString: selector and NSString constant.  Conveniently, the ObjCBoxedExpr provides just what we need, resulting in this final call
 
-<pre>SourceRange SR(S->getSourceRange());
+```objc
+SourceRange SR(S->getSourceRange());
 
 // Use the effective source range of the literal, including the leading '@'.
 return MaybeBindToTemporary(
                             new (Context) ObjCBoxedExpr(ObjCString.take(), NSURLPointer, URLWithStringMethod,
                                                         SourceRange(AtLoc, SR.getEnd())));
 
-</pre>
+```
 
-The SR (SourceRange) argument is used to associate this AST node with the source code it is generated from.  The ObjCBoxedExpr class contains all the pieces needed to execute the objc_msgSend, which will be later consumed by the code generator.  By reusing this class, we've avoided the need to write our own code generation.
+The SR (SourceRange) argument is used to associate this AST node with the source code it is generated from.  The ObjCBoxedExpr class contains all the pieces needed to execute the `objc_msgSend`, which will be later consumed by the code generator.  By reusing this class, we've avoided the need to write our own code generation.
 
 ## Code Generation
 
 To conclude this article and clarify what happens with our AST node (ObjCBoxedExpr), lets take a look at libcodegen to see how our NSURL call is converted to executable code.  The CGObjC.cpp file contains a rather curiously named method, [EmitObjCBoxedExpr](https://github.com/scarnie/clang/blob/NSURL-literal/lib/CodeGen/CGObjC.cpp#L59), taking a single parameter ObjCBoxedExpr.  It is quite succinct, making it very easy to understand (code removed for clarity). Worth noting is this function requires the boxing selector be a class method.
 
-<pre>  // Grab the NSString expression that will be the argument to URLWithString:
+```objc
+  // Grab the NSString expression that will be the argument to URLWithString:
   const Expr *SubExpr = E->getSubExpr();
-</pre>
 
-<pre>  // Grab the URLWithString: selector
+  // Grab the URLWithString: selector
   const ObjCMethodDecl *BoxingMethod = E->getBoxingMethod();
   Selector Sel = BoxingMethod->getSelector();
 
@@ -138,7 +147,7 @@ To conclude this article and clarify what happens with our AST node (ObjCBoxedEx
                                               ClassDecl, BoxingMethod);
   return Builder.CreateBitCast(result.getScalarVal(),
                                ConvertType(E->getType()));
-</pre>
+```
 
 ## Limitations and Improvements
 

@@ -15,4 +15,4 @@ I've seen a number of questions on the Apple iPhone developer forums asking how 
 }
 ```
 
-The call to `[DebugSupport waitForDebugger]` shows a UIAlertView, which will wait until you confirm by clicking the OK button. You'll notice that the prompt tells you the process ID. Don't click OK yet. Return to XCode and from the Run menu, choose Attach To Process | Process ID... Enter the PID given to you from the alert box and XCode will attach and enable all the breakpoints. Obviously, remove this from production code. Enjoy.
+The call to `[DebugSupport waitForDebugger]` shows a `UIAlertView`, which will wait until you confirm by clicking the OK button. You'll notice that the prompt tells you the process ID. Don't click OK yet. Return to Xcode and from the Run menu, choose Attach To Process | Process ID... Enter the PID given to you from the alert box and Xcode will attach and enable all the breakpoints. Obviously, remove this from production code. Enjoy.

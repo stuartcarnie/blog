@@ -3,7 +3,6 @@ title = "Enable -Wformat for better compile time help"
 date = 2009-04-18T16:16:00Z
 updated = 2009-04-18T17:53:35Z
 categories = ["osx", "xcode", "tips", "iphone"]
-blogimport = true 
 +++
 
 Let the compiler do all the hard work, and be sure to enable the following warning:

@@ -11,17 +11,17 @@ The ternary operator, also known as a conditional expression is a C construct.  
 result = condition_expression ? true_expression : false_expression;
 ```
 
-If condition_expression evaluates to true, result will be assigned the true_expression; otherwise, result will be assigned the false_expression.  A GNU extension to the ternary operator, also available in Objective-C, is the ability to omit the true_expression as follows:
+If `condition_expression` evaluates to true, result will be assigned the `true_expression`; otherwise, result will be assigned the `false_expression`.  A GNU extension to the ternary operator, also available in Objective-C, is the ability to omit the `true_expression` as follows:
 
 ```mm
 result = first_expression ?: second_expression;
 ```
 
-result will be assigned the value of first_expression if it evaluates to true or second_expression if first_expression evaluates to false.
+result will be assigned the value of `first_expression` if it evaluates to true or `second_expression` if `first_expression` evaluates to false.
 
-nil in Objective-C evaluates to false, so the GNU extension becomes particularly useful for ensuring default values during assignment, which is a pattern used widely in JavaScript.
+`nil` in Objective-C evaluates to `false`, so the GNU extension becomes particularly useful for ensuring default values during assignment, which is a pattern used widely in JavaScript.
 
-A contrived example might be an init method that takes an NSDictionary with options for configuring the instance, as follows:
+A contrived example might be an init method that takes an `NSDictionary` with options for configuring the instance, as follows:
 
 ```mm
 - (void)initWithOptions:(NSDictionary *)options {
@@ -33,9 +33,9 @@ A contrived example might be an init method that takes an NSDictionary with opti
 }
 ```
 
-The assignment ensures _options is not null. options will be assigned to the _options ivar if non-nil; otherwise _options will be assigned the kDefaultOptions dictionary.
+The assignment ensures `_options` is not null. options will be assigned to the `_options` ivar if non-nil; otherwise `_options` will be assigned the `kDefaultOptions` dictionary.
 
-Another awesome use case is for caching values, rather than initialize them all in the init method.
+Another use case is for caching values, rather than initialize them all in the init method.
 
 ```mm
 @implementation MyObj {
@@ -53,7 +53,6 @@ Another awesome use case is for caching values, rather than initialize them all 
 - (NSString *)someValue {
 	return _someValue ?: (_someValue = [some expensive operation]);
 }
-
 ```
 
-When a consumer accesses the someValue property of MyObj, if _someValue is nil, the right size of the ternary expression is returned, which retrieves the value via some expensive operation and stores it in _someValue.
+When a consumer accesses the `someValue` property of `MyObj`, if `_someValue` is `nil`, the right size of the ternary expression is returned, which retrieves the value via some expensive operation and stores it in `_someValue`.

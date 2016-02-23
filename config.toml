@@ -1,7 +1,8 @@
-baseurl = "http://spencerlyon2.github.io/hugo_gh_blog"
+baseurl = "http://blog.stuartcarnie.com/"
 languageCode = "en-us"
 title = "stuartcarnie"
 theme = "hyde-x"
+canonifyurls = true
 
 [author]
     name = "Stuart Carnie"
@@ -20,8 +21,8 @@ theme = "hyde-x"
     truncate = true
     
     # Used when a given page doesn't set its own.
-    defaultDescription = "Your default page description"
-    defaultKeywords = "your,default,page,keywords"
+    defaultDescription = "Mostly technical posts about OSX, iOS"
+    defaultKeywords = "osx,ios,swift,games,emulators,mame"
 
     # Changes sidebar background and link/accent colours.
     # See below for more colour options.
@@ -34,7 +35,7 @@ theme = "hyde-x"
 
     # Displays under the author name in the sidebar, keep it short.
     # You can use markdown here.
-    tagline = "Your favourite quote or soundbite."
+    tagline = "some witty quote"
 
     # Text for the top menu link, which goes the root URL for the site.
     # Default (if omitted) is "Blog".

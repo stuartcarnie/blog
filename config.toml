@@ -31,7 +31,7 @@ canonifyurls = true
 
     # Select a syntax highight.
     # Check the static/css/highlight directory for options.
-    highlight = "zenburn"
+    highlight = "solarized_dark"
 
     # Displays under the author name in the sidebar, keep it short.
     # You can use markdown here.
@@ -59,3 +59,6 @@ canonifyurls = true
     # Other social-like sidebar links
     # rss = false  # switch to true to enable RSS icon link
     # flattr = ""  # populate with your flattr uid
+    
+    # hyde-x variables
+    customCSS = "/css/stuart.css"

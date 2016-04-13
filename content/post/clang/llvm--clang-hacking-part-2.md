@@ -51,12 +51,11 @@ Now that you have an environment and presumably can debug the compiler, I'd reco
 
 *   [Clang CFE Internals Manual](http://clang.llvm.org/docs/InternalsManual.html)
 *   [Library Based Architecture](http://clang.llvm.org/features.html#libraryarch)
-
 *   Identifies the major libraries and their function, which correspond to many of the top-level folders within the Xcode project tree.
 
 ## Next Up
 
-Next up I'll walk through creating a language extension to Objective-C, supporting NSURL literals, following (in principal) new [Objective-C Literals](http://clang.llvm.org/docs/ObjectiveCLiterals.html) coming in the next release of Clang.
+In [Part 3](/post/llvm--clang-hacking-part-3), I'll walk through creating a language extension to Objective-C, supporting `NSURL` literals, following (in principal) the introduction of [Objective-C Literals](http://clang.llvm.org/docs/ObjectiveCLiterals.html) featuring in the next release of Clang.
 
 ## Twitter
 

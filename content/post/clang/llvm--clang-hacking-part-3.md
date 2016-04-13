@@ -15,9 +15,9 @@ This post assumes you've successfully completed [Part 1](/post/clang/llvm--clang
 
 [Objective-C literals](http://clang.llvm.org/docs/ObjectiveCLiterals.html) are an exciting syntactic feature coming to the next release of Clang.  This will be available in [Xcode 4.4](http://stackoverflow.com/questions/9347722/apple-llvm-4-0-new-features-on-xcode-4-4-literals) and presumably the next iOS update.  I was indirectly presented with the challenge on Twitter from [@casademora](https://twitter.com/casademora/status/208596677551071232) when querying what an NSURL literal might look like.  Truthfully, I've wanted an excuse to hack on Clang and this seemed small enough in scope to achieve in a day.  I threw out the idea of NSURL literals being represented by a @@ prefix, so the following line would compile:
 
-```objc
+~~~objc
 NSURL *url = @@"http://apple.com"
-```
+~~~
 
 **NOTE:** I'm not suggesting `NSURL` literals should become a new language feature of Objective-C – this merely serves a reasonable feature for academic exploration.
 

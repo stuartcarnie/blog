@@ -43,7 +43,7 @@ canonifyurls = true
 
     # Metadata used to drive integrations.
     # googleAuthorship = "Your Google+ profile ID"
-    # googleAnalytics = "Your Google Analytics tracking code"
+    googleAnalytics = "UA-75163672-1"
     # gravatarHash = "MD5 hash of your Gravatar email address"
 
     # Sidebar social links, these must be full URLs.

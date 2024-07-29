@@ -1,10 +1,14 @@
 +++
 title = "Associative References in Objective-C"
-description = "this is a description"
 date = 2012-02-19T22:58:00Z
 updated = 2012-02-20T00:12:36Z
 categories = ["osx", "objective-c"]
+
 +++
+
+This is some preamble.
+
+<!--more-->
 
 Take the following Javascript (stick with me):
 

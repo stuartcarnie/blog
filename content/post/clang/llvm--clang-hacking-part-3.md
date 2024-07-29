@@ -15,9 +15,9 @@ This post assumes you've successfully completed [Part 1](/post/clang/llvm--clang
 
 [Objective-C literals](http://clang.llvm.org/docs/ObjectiveCLiterals.html) are an exciting syntactic feature coming to the next release of Clang.  This will be available in [Xcode 4.4](http://stackoverflow.com/questions/9347722/apple-llvm-4-0-new-features-on-xcode-4-4-literals) and presumably the next iOS update.  I was indirectly presented with the challenge on Twitter from [@casademora](https://twitter.com/casademora/status/208596677551071232) when querying what an NSURL literal might look like.  Truthfully, I've wanted an excuse to hack on Clang and this seemed small enough in scope to achieve in a day.  I threw out the idea of NSURL literals being represented by a @@ prefix, so the following line would compile:
 
-~~~objc
+```objc
 NSURL *url = @@"http://apple.com"
-~~~
+```
 
 **NOTE:** I'm not suggesting `NSURL` literals should become a new language feature of Objective-C – this merely serves a reasonable feature for academic exploration.
 
@@ -25,7 +25,7 @@ NSURL *url = @@"http://apple.com"
 
 Armed with the knowledge that these new literals were available, I started exploring the libparse code in Clang.  ParseObjc.cpp seemed like a good place to start, which turned out to be correct and lead me to the rather aptly named [Parser::ParseObjCAtExpression](https://github.com/llvm-mirror/clang/blob/4d3db4eb6caa49a7cdbfe1798728ce4b23cd0b53/lib/Parse/ParseObjc.cpp#L2019) method.  The implementation of this method is obvious, determining the next token and delegating parsing to various methods depending of the type of expression encountered.  Our syntax requires a second @ token, so I added the following code to the switch statement:
 
-```objc
+```cpp
 case tok::at:
     // Objective-C NSURL expression
     ConsumeToken(); // Consume the additional @ token.
@@ -37,7 +37,7 @@ case tok::at:
 
 In english, if we find another @ token, we'll assume an NSURL literal and attempt to parse, by delegating to our new ParseObjCURLLiteral method. The implementation of [ParseObjCURLLiteral](https://github.com/scarnie/clang/blob/NSURL-literal/lib/Parse/ParseObjc.cpp#L2561) is again quite simple:
 
-```objc
+```cpp
 ExprResult Parser::ParseObjCURLLiteral(clang::SourceLocation AtLoc) {
     ExprResult Res(ParseStringLiteralExpression());
     if (Res.isInvalid()) return move(Res);

@@ -1,0 +1,82 @@
+baseURL: http://blog.stuartcarnie.com/
+languageCode: en-us
+defaultContentLanguage: en
+title: stuartcarnie
+theme: ["hugo-notice", "triple-hyde"]
+canonifyURLs: true
+enableGitInfo: true
+enableRobotsTXT: true
+
+permalinks:
+  post: /:filename/
+
+imaging:
+  quality: 99
+
+params:
+  highlightjs: true
+  relatedPosts: true
+  description: Mostly technical posts about macOS and iOS
+  homeMetaContent: Mostly technical posts about macOS and iOS
+  footer:
+    copyright_text: © 2024 stuartcarnie
+  # For more date formats see https://gohugo.io/functions/format/
+  dateFormat: Jan 2, 2006
+  katex: true
+  darkThemeAsDefault: false
+  hideHeaderLinks: false
+  search: true
+  # A list of custom css files can be provided, which must be placed inside
+  # 'static/'.
+  # This is useful to override just specific css classes, instead of copying
+  # the entire theme's css file to your own site.
+  # Usage:
+  customCss:
+  #   - css/foo.css # relative path starting from static/
+  - css/prism.css
+
+menu:
+  main:
+    - name: Home
+      pageRef: /
+      weight: 1
+    - name: Posts
+      pageRef: /post/
+      weight: 2
+    - name: Tags
+      pageRef: /tags/
+      weight: 3
+    - name: About
+      pageRef: /about/
+      weight: 4
+
+markup:
+  defaultMarkdownHandler: goldmark
+  goldmark:
+    extensions:
+      extras:
+        delete:
+          enable: true
+        subscript:
+          enable: true
+        superscript:
+          enable: true
+      typographer: true
+    parser:
+      attribute:
+        block: true
+        title: true
+    renderer:
+      hardWraps: false
+      unsafe: true
+      xHTML: false
+  highlight:
+    codeFences: true
+    lineNos: false
+    lineNumbersInTable: true
+    noClasses: false
+    style: base16-snazzy
+    tabWidth: 4
+  tableOfContents:
+    endLevel: 6
+    startLevel: 2

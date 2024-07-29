@@ -1,9 +1,9 @@
-+++
-title = "llvm / Clang hacking: Part 1"
-date = 2012-06-02T14:21:00Z
-updated = 2012-08-02T22:25:08Z
-categories = ["clang"]
-+++
+---
+title: "llvm / Clang hacking: Part 1"
+date: "2012-06-02T14:21:00Z"
+updated: "2012-08-02T22:25:08Z"
+categories: ["clang"]
+---
 
 Part 1 in my N-part series on my exploration of hacking on [llvm](http://llvm.org) and [Clang](http://clang.llvm.org) (c-language) tool chain.  I am running OS X 10.7, however I will try to highlight the steps where you should consider substituting for your platform.
 

@@ -1,9 +1,8 @@
-baseURL: http://blog.stuartcarnie.com/
+baseURL: http://blog.stuartcarnie.com/blog/
 languageCode: en-us
 defaultContentLanguage: en
 title: stuartcarnie
 theme: ["hugo-notice", "triple-hyde"]
-canonifyURLs: true
 enableGitInfo: true
 enableRobotsTXT: true
 

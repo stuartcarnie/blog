@@ -49,8 +49,8 @@ menu:
     - name: Tags
       pageRef: /tags/
       weight: 3
-    - name: About
-      pageRef: /about/
+    - name: Categories
+      pageRef: /categories/
       weight: 4
 
 markup:

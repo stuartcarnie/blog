@@ -1,7 +1,7 @@
 baseURL: http://blog.stuartcarnie.com/
 languageCode: en-us
 defaultContentLanguage: en
-title: stuartcarnie
+title: stuart carnie
 theme: ["hugo-notice", "triple-hyde"]
 enableGitInfo: true
 enableRobotsTXT: true
@@ -15,8 +15,8 @@ imaging:
 params:
   highlightjs: true
   relatedPosts: true
-  description: Mostly technical posts about macOS and iOS
-  homeMetaContent: Mostly technical posts about macOS and iOS
+  description: Random technical musings
+  homeMetaContent: Random technical musings
   footer:
     copyright_text: © 2024 stuartcarnie
   # For more date formats see https://gohugo.io/functions/format/
@@ -33,6 +33,10 @@ params:
   customCss:
   #   - css/foo.css # relative path starting from static/
   - css/prism.css
+  social:
+    twitter: stuartcarnie
+    github: stuartcarnie
+    linkedin: stuartcarnie
 
 menu:
   main:

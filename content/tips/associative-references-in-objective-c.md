@@ -1,10 +1,11 @@
-+++
-title = "Associative References in Objective-C"
-date = 2012-02-19T22:58:00Z
-updated = 2012-02-20T00:12:36Z
-categories = ["osx", "objective-c"]
-
-+++
+---
+title: "Associative References in Objective-C"
+date: 2012-02-19T22:58:00Z
+updated: 2012-02-20T00:12:36Z
+tags: ["objective-c"]
+aliases:
+  - /associative-references-in-objective-c/
+---
 
 This is some preamble.
 

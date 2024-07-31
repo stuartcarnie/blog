@@ -1,9 +1,11 @@
-+++
-title = "Objective-C: ternary operator"
-date = 2012-03-15T23:01:00Z
-updated = 2012-03-16T11:23:25Z
-categories = ["tips", "objective-c"]
-+++
+---
+title: "Objective-C: ternary operator"
+date: "2012-03-15T23:01:00Z"
+updated: "2012-03-16T11:23:25Z"
+tags: ["objective-c"]
+aliases:
+  - /objective-c-ternary-operator/
+---
 
 The ternary operator, also known as a conditional expression is a C construct.  What follows is an example used for conditional assignment:
 

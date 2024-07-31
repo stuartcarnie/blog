@@ -1,9 +1,11 @@
-+++
-title = "Transferring Preview app signatures in Lion"
-date = 2011-08-03T22:45:00Z
-updated = 2011-09-21T10:56:57Z
-categories = ["osx", "tips"]
-+++
+---
+title: "Transferring Preview app signatures in Lion"
+date: 2011-08-03T22:45:00Z
+updated: 2011-09-21T10:56:57Z
+tags: ["macos"]
+aliases:
+  - /transferring-preview-app-signatures-in-lion/
+---
 
 Lion introduced a great [new feature](http://www.apple.com/macosx/whats-new/features.html#preview) that allows you to [capture your signature](http://www.cultofmac.com/you-can-now-sign-pdfs-using-lions-preview-app-screenshots-how-to/100237) via an attached camera and store it in an encrypted form for later use.  Therein lies the problem; you must have an attached camera.
 

@@ -1,10 +1,11 @@
-+++
-title = "Eval Expression service for OS X"
-date = 2011-04-09T21:44:00Z
-updated = 2011-04-10T01:31:03Z
-categories = ["osx", "utility"]
-blogimport = true 
-+++
+---
+title: "Eval Expression service for OS X"
+date: 2011-04-09T21:44:00Z
+updated: 2011-04-10T01:31:03Z
+tags: ["macos"]
+aliases:
+  - /eval-expression-service-for-os-x/
+---
 
 **Eval Expression** is a Mac OS X service to evaluate the selected text of any text field as a Ruby expression.  My instinct was to choose Perl, however Ruby offers binary in addition to decimal, hex and octal numerical literals.  The service becomes infinitely more useful if you assign it a global shortcut in Keyboard preferences.  In my case I assigned a combination that seemed obvious, ⌘=
 

@@ -1,9 +1,13 @@
-+++
-title = "llvm / Clang hacking: Part 3"
-date = "2012-06-06T02:33:00Z"
-updated = "2012-08-02T22:24:44Z"
-categories = ["clang"]
-+++
+---
+title: "llvm / Clang hacking: Part 3"
+date: "2012-06-06T02:33:00Z"
+updated: "2012-08-02T22:24:44Z"
+tags: ["clang"]
+series:
+  - llvm / Clang hacking
+aliases:
+  - /llvm--clang-hacking-part-3/
+---
 
 Part 3 in my N-part series on my exploration of hacking on [llvm](http://llvm.org) and [Clang](http://clang.llvm.org) (c-language) tool chain.
 
@@ -19,7 +23,9 @@ This post assumes you've successfully completed [Part 1](/post/clang/llvm--clang
 NSURL *url = @@"http://apple.com"
 ```
 
-**NOTE:** I'm not suggesting `NSURL` literals should become a new language feature of Objective-C – this merely serves a reasonable feature for academic exploration.
+{{< notice note >}}
+I'm not suggesting `NSURL` literals should become a new language feature of Objective-C – this merely serves a reasonable feature for academic exploration.
+{{< /notice >}}
 
 ## Parsing: libparse
 

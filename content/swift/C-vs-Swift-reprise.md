@@ -2,6 +2,8 @@
 title:  "C vs Swift: Reprise"
 date:   "2016-05-12"
 tags:   ["swift"]
+aliases:
+  - /C-vs-Swift-reprise/
 ---
 
 Upgrading the Swift 1.2 version of the orbitals project brought some new performance challenges. 

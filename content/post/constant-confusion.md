@@ -2,7 +2,7 @@
 title = "Constant Confusion"
 date = 2011-12-03T01:33:00Z
 updated = 2011-12-04T16:23:06Z
-categories = ["c", "tips", "technical"]
+tags = ["c"]
 [author]
 	name = "Stuart"
 	uri = ""

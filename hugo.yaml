@@ -12,6 +12,11 @@ permalinks:
 imaging:
   quality: 99
 
+taxonomies:
+  category: categories
+  series: series
+  tag: tags
+
 params:
   highlightjs: true
   relatedPosts: true
@@ -46,11 +51,20 @@ menu:
     - name: Posts
       pageRef: /post/
       weight: 2
+    - name: Tips
+      pageRef: /tips/
+      weight: 3
+    - name: Random
+      pageRef: /random/
+      weight: 3
+    - name: Series
+      pageRef: /series/
+      weight: 3
+    - name: Swift
+      pageRef: /Swift/
+      weight: 3
     - name: Tags
       pageRef: /tags/
-      weight: 3
-    - name: Categories
-      pageRef: /categories/
       weight: 4
 
 markup:

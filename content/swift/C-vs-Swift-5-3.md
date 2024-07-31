@@ -2,6 +2,8 @@
 title:  "C vs Swift 5.3"
 date:   "2020-08-20"
 tags:   ["swift"]
+aliases:
+  - /C-vs-Swift-5-3/
 ---
 
 I revisit the C vs Swift post to see how things have improved.

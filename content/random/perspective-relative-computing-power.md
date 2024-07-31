@@ -1,9 +1,11 @@
-+++
-title = "Perspective: Relative computing power"
-date = 2015-09-10T21:06:00Z
-updated = 2015-09-10T21:07:48Z
-categories = ["iphone", "technical"]
-+++
+---
+title: "Perspective: Relative computing power"
+date: 2015-09-10T21:06:00Z
+updated: 2015-09-10T21:07:48Z
+tags: ["iphone"]
+aliases:
+  - /perspective-relative-computing-power/
+---
 
 A brief exploration how far computing has come by comparing a Cray 1 supercomputer with an iPhone 6
 

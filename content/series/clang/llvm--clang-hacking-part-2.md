@@ -1,9 +1,13 @@
-+++
-title = "llvm / Clang hacking: Part 2"
-date = 2012-06-06T00:07:00Z
-updated = 2012-08-02T22:24:55Z
-categories = ["clang"]
-+++
+---
+title: "llvm / Clang hacking: Part 2"
+date: 2012-06-06T00:07:00Z
+updated: 2012-08-02T22:24:55Z
+tags: ["clang"]
+series:
+  - llvm / Clang hacking
+aliases:
+  - /llvm--clang-hacking-part-2/
+---
 
 Part 2 in my N-part series on my exploration of hacking on [llvm](http://llvm.org) and [Clang](http://clang.llvm.org) (c-language) tool chain.
 

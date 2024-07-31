@@ -1,9 +1,11 @@
-+++
-title = "Renew Apple developer certificates with OpenSSL"
-date = 2011-02-02T16:30:00Z
-updated = 2011-02-02T19:12:14Z
-categories = ["apple", "iOS"]
-+++
+---
+title: "Renew Apple developer certificates with OpenSSL"
+date: 2011-02-02T16:30:00Z
+updated: 2011-02-02T19:12:14Z
+tags: ["apple"]
+aliases:
+  - /renew-apple-developer-certificates-with-openssl/
+---
 
 I like to reuse the same private keys when generating a signing request to renew my Apple developer certificates.  Unfortunately you can't do this with Keychain Access, as it won't save the signing request file after you step through the wizard.  OpenSSL is your friend.
 

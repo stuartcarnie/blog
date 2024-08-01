@@ -7,7 +7,7 @@ aliases:
   - /lldb-vi-mode-and-tab-completion/
 ---
 
-lldb uses libedit, which is a BSD licensed alternative to GNU readline. A feature of libedit is the ability to configure per-application settings for command-line bindings via ~/.editrc. Detailed documentation for this configuration file can be found using `man editrc` or via online documentation, such as [developer.apple.com](https://developer.apple.com/library/mac/#documentation/Darwin/Reference/ManPages/man5/editrc.5.html#//apple_ref/doc/man/5/editrc).
+lldb uses libedit, which is a BSD licensed alternative to GNU readline. A feature of libedit is the ability to configure per-application settings for command-line bindings via `~/.editrc`. Detailed documentation for this configuration file can be found using `man editrc` or via online documentation, such as [developer.apple.com](https://developer.apple.com/library/mac/#documentation/Darwin/Reference/ManPages/man5/editrc.5.html#//apple_ref/doc/man/5/editrc).
 
 As I prefer VI bindings, I initially configured my .editrc as follows, to replace the default emacs bindings:
 

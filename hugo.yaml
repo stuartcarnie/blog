@@ -1,15 +1,19 @@
-baseURL: http://blog.stuartcarnie.com/
+baseURL: https://blog.stuartcarnie.com/
 languageCode: en-us
 defaultContentLanguage: en
 title: stuart carnie
-theme: ["hugo-notice", "triple-hyde"]
+theme: ["hugo-notice", "hugo-papermod"]
+paginate: 5
 enableGitInfo: true
 enableRobotsTXT: true
 
 permalinks:
-  post: /:filename/
+  # post: /:filename/
+  page:
+    /: /:year/:month/:slug/
 
 imaging:
+  bgColor: '#ffffff'
   quality: 99
 
 taxonomies:
@@ -17,39 +21,46 @@ taxonomies:
   series: series
   tag: tags
 
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # necessary for search
+
 params:
-  highlightjs: true
-  relatedPosts: true
+  env: production
   description: Random technical musings
-  homeMetaContent: Random technical musings
-  footer:
-    copyright_text: © 2024 stuartcarnie
+  defaultTheme: auto
+  ShowReadingTime: true
+  ShowToc: true
+  highlightjs: true
   # For more date formats see https://gohugo.io/functions/format/
   dateFormat: Jan 2, 2006
   katex: true
-  darkThemeAsDefault: false
-  hideHeaderLinks: false
-  search: true
-  # A list of custom css files can be provided, which must be placed inside
-  # 'static/'.
-  # This is useful to override just specific css classes, instead of copying
-  # the entire theme's css file to your own site.
-  # Usage:
-  customCss:
-  #   - css/foo.css # relative path starting from static/
-  - css/prism.css
-  social:
-    twitter: stuartcarnie
-    github: stuartcarnie
-    linkedin: stuartcarnie
+  mainSections:
+    - godot
+    - post
+    - series
+    - random
+    - tips
+  ShowShareButtons: true
+  ShareButtons: ["x", "reddit"]
+  SocialIcons:
+    - name: "x"
+      url: "https://x.com/stuartcarnie"
+    - name: "github"
+      url: "https://github.com/stuartcarnie"
 
-menu:
+menus:
   main:
     - name: Home
       pageRef: /
       weight: 1
     - name: Posts
       pageRef: /post/
+      weight: 2
+    - name: Godot
+      pageRef: /godot/
       weight: 2
     - name: Tips
       pageRef: /tips/
@@ -59,9 +70,6 @@ menu:
       weight: 3
     - name: Series
       pageRef: /series/
-      weight: 3
-    - name: Swift
-      pageRef: /Swift/
       weight: 3
     - name: Tags
       pageRef: /tags/

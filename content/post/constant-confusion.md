@@ -1,12 +1,9 @@
-+++
-title = "Constant Confusion"
-date = 2011-12-03T01:33:00Z
-updated = 2011-12-04T16:23:06Z
-tags = ["c"]
-[author]
-	name = "Stuart"
-	uri = ""
-+++
+---
+title: "Constant Confusion"
+date: 2011-12-03T01:33:00Z
+updated: 2011-12-04T16:23:06Z
+tags: ["c"]
+---
 
 The `const` keyword in C can be confusing, so I wanted to put down my thoughts for my own benefit and for those looking for some clarity. In summary, I'm going to advocate you place `const` to the right, and read the declaration from right to left.
 

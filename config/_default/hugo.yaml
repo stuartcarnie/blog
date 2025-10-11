@@ -3,9 +3,11 @@ languageCode: en-us
 defaultContentLanguage: en
 title: stuart carnie
 theme: ["hugo-notice", "hugo-papermod"]
-paginate: 5
+pagination:
+  pagerSize: 5
 enableGitInfo: true
 enableRobotsTXT: true
+ignoreLogs: ['warning-partial-superfluous-prefix']
 
 permalinks:
   # post: /:filename/

@@ -98,7 +98,7 @@ markup:
       unsafe: true
       xHTML: false
   highlight:
-    codeFences: true
+    codeFences: false
     lineNos: false
     lineNumbersInTable: true
     noClasses: false

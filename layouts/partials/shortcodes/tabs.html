@@ -1,0 +1,72 @@
+{{- $page := .page -}}
+{{- $tabs := .tabs | default (slice) -}}
+{{- if gt (len $tabs) 0 -}}
+  {{- $source := (or (and $page $page.File $page.File.Path) (and $page $page.RelPermalink) "tabs") -}}
+  {{- $groupid := .groupid | default (printf "tabs-%s" (md5 (printf "%s-%d" $source (len $tabs)))) -}}
+  {{- $title := .title | default "" -}}
+  {{- $icon := .icon | default "" -}}
+  {{- $defaultStyle := .style | default "" -}}
+  {{- $defaultColor := .color | default "" -}}
+<div class="tab-panel" data-tab-group="{{ $groupid }}"{{ with $defaultColor }} style="--tab-active: {{ . }};"{{ end }}>
+  <div class="tab-nav" role="tablist">
+    <div class="tab-nav-title">
+      {{- if $icon }}<i class="{{ $icon }}"></i>{{ end -}}
+      {{- if and $icon $title }} {{ end -}}
+      {{- if $title }}
+        {{- if $page }}{{ $title | $page.RenderString }}{{ else }}{{ $title }}{{ end -}}
+      {{- else }}&#8203;{{ end -}}
+    </div>
+    {{- range $idx, $tab := $tabs }}
+      {{- $tabTitle := $tab.title | default "" -}}
+      {{- $tabIcon := $tab.icon | default "" -}}
+      {{- $tabStyle := $tab.style | default $defaultStyle -}}
+      {{- $tabColor := $tab.color | default $defaultColor -}}
+      {{- $raw := trim ($tab.content | default "") "\n\r\t " -}}
+      {{- if and (ne $raw "") (not (hasPrefix $raw "<")) }}{{- $raw = printf "<p>\n%s</p>" $raw -}}{{- end -}}
+      {{- $tabId := printf "%s-panel-%d" $groupid $idx -}}
+      {{- $itemId := printf "%s-item-%d" $groupid $idx -}}
+      {{- $buttonId := printf "%s-button-%d" $groupid $idx -}}
+    <button
+      type="button"
+      id="{{ $buttonId }}"
+      class="tab-nav-button{{ if $tabStyle }} tab-style-{{ $tabStyle }}{{ end }}{{ if eq $idx 0 }} active{{ end }}"
+      data-tab-item="{{ $itemId }}"
+      aria-controls="{{ $tabId }}"
+      aria-selected="{{ cond (eq $idx 0) "true" "false" }}"
+      role="tab"
+      {{- with $tabColor }} style="--tab-active: {{ . }};"{{ end }}>
+      <span class="tab-nav-text">
+        {{- if $tabIcon }}<i class="{{ $tabIcon }}"></i>{{ end -}}
+        {{- if and $tabIcon $tabTitle }} {{ end -}}
+        {{- if $tabTitle }}
+          {{- if $page }}{{ $tabTitle | $page.RenderString }}{{ else }}{{ $tabTitle }}{{ end -}}
+        {{- else }}&#8203;{{ end -}}
+      </span>
+    </button>
+    {{- end }}
+  </div>
+  <div class="tab-content-container">
+    {{- range $idx, $tab := $tabs }}
+      {{- $tabTitle := $tab.title | default "" -}}
+      {{- $tabIcon := $tab.icon | default "" -}}
+      {{- $tabStyle := $tab.style | default $defaultStyle -}}
+      {{- $tabColor := $tab.color | default $defaultColor -}}
+      {{- $raw := trim ($tab.content | default "") "\n\r\t " -}}
+      {{- if and (ne $raw "") (not (hasPrefix $raw "<")) }}{{- $raw = printf "<p>\n%s</p>" $raw -}}{{- end -}}
+      {{- $tabId := printf "%s-panel-%d" $groupid $idx -}}
+      {{- $itemId := printf "%s-item-%d" $groupid $idx -}}
+    <div
+      id="{{ $tabId }}"
+      class="tab-content{{ if $tabStyle }} tab-style-{{ $tabStyle }}{{ end }}{{ if eq $idx 0 }} active{{ end }}"
+      data-tab-item="{{ $itemId }}"
+      role="tabpanel"
+      aria-labelledby="{{ printf "%s-button-%d" $groupid $idx }}"
+      {{- with $tabColor }} style="--tab-active: {{ . }};"{{ end }}>
+      <div class="tab-content-text">
+{{ $raw | safeHTML }}
+      </div>
+    </div>
+    {{- end }}
+  </div>
+</div>
+{{- end -}}

@@ -1,0 +1,69 @@
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.hljs) {
+    window.hljs.highlightAll();
+  }
+});
+</script>
+
+<script>
+(function () {
+  function activateTab(panel, targetId) {
+    var buttons = panel.querySelectorAll('.tab-nav-button');
+    var contents = panel.querySelectorAll('.tab-content');
+    buttons.forEach(function (button) {
+      var isActive = button.dataset.tabItem === targetId;
+      button.classList.toggle('active', isActive);
+      button.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      button.tabIndex = isActive ? 0 : -1;
+    });
+    contents.forEach(function (content) {
+      var isActive = content.dataset.tabItem === targetId;
+      content.classList.toggle('active', isActive);
+      content.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      content.hidden = !isActive;
+    });
+  }
+
+  function setupPanel(panel) {
+    var buttons = panel.querySelectorAll('.tab-nav-button');
+    var contents = panel.querySelectorAll('.tab-content');
+    if (!buttons.length || !contents.length) {
+      return;
+    }
+
+    buttons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        activateTab(panel, button.dataset.tabItem);
+      });
+      button.addEventListener('keydown', function (event) {
+        if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') {
+          return;
+        }
+        event.preventDefault();
+        var offset = event.key === 'ArrowRight' ? 1 : -1;
+        var list = Array.from(buttons);
+        var index = list.indexOf(button);
+        var next = list[(index + offset + list.length) % list.length];
+        next.focus();
+        activateTab(panel, next.dataset.tabItem);
+      });
+    });
+
+    var defaultButton = panel.querySelector('.tab-nav-button.active') || buttons[0];
+    if (defaultButton) {
+      activateTab(panel, defaultButton.dataset.tabItem);
+    }
+  }
+
+  function init() {
+    document.querySelectorAll('.tab-panel').forEach(setupPanel);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>

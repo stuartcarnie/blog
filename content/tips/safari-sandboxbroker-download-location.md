@@ -8,6 +8,8 @@ aliases:
 
 When Safari ignores your preferred **File download location** setting, terminating the `com.apple.Safari.SandboxBroker` process can resolve the issue.
 
+<!--more-->
+
 Credit to Saagar Jha, who noted the problem and solution:
 
 {{< x user="_saagarjha" id="1959541361503535216" >}}

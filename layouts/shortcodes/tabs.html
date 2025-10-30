@@ -1,0 +1,21 @@
+{{- $_hugo_config := `{ "version": 1 }` -}}
+{{- $page := .Page -}}
+{{- $unused := .Inner -}}
+{{- $tabs := (.Scratch.Get "tabs") | default (slice) -}}
+{{- if gt (len $tabs) 0 -}}
+  {{- $counter := add ((($page.Scratch.Get "tabsCounter") | default 0)) 1 -}}
+  {{- $page.Scratch.Set "tabsCounter" $counter -}}
+  {{- $source := (or (and $page $page.File $page.File.Path) $page.RelPermalink "tabs") -}}
+  {{- $groupDefault := printf "tabs-%s" (md5 (printf "%s-%d" $source $counter)) -}}
+  {{- $groupid := (.Get "groupid") | default $groupDefault -}}
+  {{- partial "shortcodes/tabs.html" (dict
+      "page"   $page
+      "tabs"   $tabs
+      "groupid" $groupid
+      "title"  (.Get "title")
+      "icon"   (.Get "icon")
+      "style"  (.Get "style")
+      "color"  (.Get "color")
+  ) -}}
+{{- end -}}
+{{- .Scratch.Delete "tabs" -}}

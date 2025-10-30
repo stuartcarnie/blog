@@ -1,0 +1,35 @@
+{{- $_hugo_config := `{ "version": 1 }` -}}
+{{- $page := .Page -}}
+{{- $title := (.Get "title") | default (.Get "name") -}}
+{{- $icon := (.Get "icon") -}}
+{{- $style := (.Get "style") -}}
+{{- $color := (.Get "color") -}}
+{{- $content := trim .Inner "\n\r" -}}
+{{- if .Parent -}}
+  {{- $tabs := (.Parent.Scratch.Get "tabs") | default (slice) -}}
+  {{- $tab := dict
+      "title"   $title
+      "icon"    $icon
+      "style"   $style
+      "color"   $color
+      "content" $content
+  -}}
+  {{- $tabs = $tabs | append $tab -}}
+  {{- $.Parent.Scratch.Set "tabs" $tabs -}}
+{{- else -}}
+  {{- $groupSource := (or (and $page $page.File $page.File.Path) $page.RelPermalink "tab") -}}
+  {{- $groupid := printf "tab-%s" (md5 (printf "%s-%s" $groupSource $title)) -}}
+  {{- partial "shortcodes/tabs.html" (dict
+      "page"    $page
+      "tabs"    (slice (dict
+        "title"   $title
+        "icon"    $icon
+        "style"   $style
+        "color"   $color
+        "content" $content
+      ))
+      "groupid" $groupid
+      "style"   $style
+      "color"   $color
+  ) -}}
+{{- end -}}
